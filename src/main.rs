@@ -1,7 +1,7 @@
 
-mod args;
+mod command;
 
-use args::RustflixArgs;
+use command::RustflixArgs;
 use clap::Parser;
 
 fn main() {

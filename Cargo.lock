@@ -30,13 +30,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "clap-cli"
-version = "0.1.0"
-dependencies = [
- "clap",
-]
-
-[[package]]
 name = "clap_derive"
 version = "4.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -114,6 +107,13 @@ dependencies = [
  "io-lifetimes",
  "rustix",
  "windows-sys",
+]
+
+[[package]]
+name = "jdbuilder"
+version = "0.1.0"
+dependencies = [
+ "clap",
 ]
 
 [[package]]
