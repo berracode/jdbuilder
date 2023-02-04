@@ -4,15 +4,17 @@ use clap::{
 
 pub mod user_command;
 pub mod video_command;
+pub mod create_command;
 
 use user_command::UserCommand;
 use video_command::VideoCommand;
+use create_command::CreateCommand;
 
 
 #[derive(clap::Parser, Debug)]
-#[clap(author, version, about, long_about = None)]
+#[command(author, version, about, long_about = None)]
 pub struct RustflixArgs {
-    #[clap(subcommand)]
+    #[command(subcommand)]
     pub entity_type: EntityType,
 
 }
@@ -25,4 +27,7 @@ pub enum EntityType{
 
     /// Create, update, delete or show videos
     Video(VideoCommand),
+
+    /// Create
+    Create(CreateCommand)
 }

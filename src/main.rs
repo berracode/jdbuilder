@@ -5,6 +5,7 @@ use command::{
    RustflixArgs, 
    EntityType::User, 
    EntityType::Video, 
+   EntityType::Create,
    user_command::{
       UserCommand, 
       CreateUser
@@ -12,6 +13,10 @@ use command::{
    video_command::{
       VideoCommand,
       CreateVideo, UpdateVideo 
+   },
+   create_command::{
+      CreateCommand,
+      CreateEntities, CreateDtos
    }
 };
 use clap::Parser;
@@ -25,7 +30,8 @@ fn main() {
 
    match entity_type {
       User(user) => handle_user_command(user),
-      Video(video) => handle_video_command(video)
+      Video(video) => handle_video_command(video),
+      Create(_) => todo!(),
    }
 }
 
@@ -37,8 +43,8 @@ fn handle_video_command(video: VideoCommand){
    println!("Doing something important... {:?}",video);
 
    match video.command {
-      VideoSubcommand::Create(createVideo) => create_video(createVideo),
-      VideoSubcommand::Update(updateVideo) => update_video(updateVideo),
+      VideoSubcommand::Create(video) => create_video(video),
+      VideoSubcommand::Update(video) => update_video(video),
    }
 
 }
