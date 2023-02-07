@@ -4,9 +4,9 @@ use mysql::prelude::*;
 #[derive(Debug, PartialEq, Eq)]
 pub struct TableDescriptor{
     field: String,
-    Type: String,
+    data_type: String,
     is_null: String,
-    key: Option<String>,
+    column_key: Option<String>,
     extra: Option<String>,
 }
 
@@ -21,14 +21,15 @@ pub fn describe_table() -> std::result::Result<(), Box<dyn std::error::Error>>{
 
     let selected_table_descriptor = conn
         .query_map(
-            "describe grades",
-            |(field, field_type, is_null, key, extra)|{
-                TableDescriptor{field, field_type, is_null, key, extra}
+            "SELECT isc.COLUMN_NAME as field, isc.DATA_TYPE as data_type, isc.IS_NULLABLE as is_null, isc.column_key, isc.extra  
+            FROM information_schema.COLUMNS isc WHERE TABLE_NAME ='grades'",
+            |(field, data_type, is_null, column_key, extra)|{
+                TableDescriptor{field, data_type, is_null, column_key, extra}
             },
         )?;
 
 
-        println!("fin {}", selected_table_descriptor.len());
+        println!("fin {:?}", selected_table_descriptor[0]);
 
         Ok(())
 
