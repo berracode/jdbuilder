@@ -20,8 +20,9 @@ use command::{
    }
 };
 use clap::Parser;
+use command::mysql_adapter;
 
-use crate::command::video_command::VideoSubcommand;
+use crate::command::{video_command::VideoSubcommand, mysql_adapter::describe_table};
 
 fn main() {
 
@@ -52,6 +53,7 @@ fn handle_video_command(video: VideoCommand){
 fn create_video(video: CreateVideo){
    println!("Creating video... ");
    //TODO write in file the video info
+   describe_table();
 }
 
 fn update_video(video: UpdateVideo){
