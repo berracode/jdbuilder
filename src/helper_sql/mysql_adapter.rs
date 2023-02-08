@@ -54,8 +54,7 @@ pub fn get_all_tables() -> std::result::Result<Vec<TableName>, Box<dyn std::erro
 
 pub fn describe_table() -> std::result::Result<(), Box<dyn std::error::Error>>{
     let url = "mysql://root:root@192.168.1.150:3306/mis-notas-db";
-    // jdbc:mariadb://192.168.1.150:3306/mis-notas-db
-    //root
+
 
     let tables = get_all_tables().unwrap_or_else(|error|{
         panic!("error: {:?}", error);
@@ -75,11 +74,6 @@ pub fn describe_table() -> std::result::Result<(), Box<dyn std::error::Error>>{
         let mut query = format!("SELECT isc.COLUMN_NAME as field, isc.DATA_TYPE as data_type, 
         isc.IS_NULLABLE as is_null, isc.column_key, isc.extra FROM information_schema.COLUMNS isc WHERE TABLE_NAME = '{table}'").to_owned();
 
-
-
-       // query.push(condition);
-
-        println!("query {query}");
 
         let selected_table_descriptor = conn
         .query_map(query
@@ -101,7 +95,7 @@ pub fn describe_table() -> std::result::Result<(), Box<dyn std::error::Error>>{
     for table_descriptor in table_descriptor_list {
         println!("table desceiptor detail for {}", table_descriptor.table_name);
         for table_detail in table_descriptor.table_descriptor.iter() {
-            println!("table detail {}",table_detail);
+            println!("table detail {:?}",table_detail);
             
         }
         
