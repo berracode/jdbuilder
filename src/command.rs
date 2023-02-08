@@ -5,7 +5,6 @@ use clap::{
 pub mod user_command;
 pub mod video_command;
 pub mod create_command;
-pub mod mysql_adapter;
 
 
 use user_command::UserCommand;

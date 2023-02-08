@@ -623,6 +623,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "interpolate"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77f79bd4b23cf80e87800201b67003726fb10b954c68a7e09dc54a340ca8e1fb"
+
+[[package]]
 name = "io-enum"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -666,6 +672,7 @@ name = "jdbuilder"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "interpolate",
  "mysql",
 ]
 

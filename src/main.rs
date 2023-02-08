@@ -1,5 +1,6 @@
 
 mod command;
+mod helper_sql;
 
 use command::{
    RustflixArgs, 
@@ -20,9 +21,12 @@ use command::{
    }
 };
 use clap::Parser;
-use command::mysql_adapter;
+use helper_sql::mysql_adapter;
+use helper_sql::{
+   mysql_adapter::describe_table
+};
 
-use crate::command::{video_command::VideoSubcommand, mysql_adapter::describe_table};
+use crate::command::{video_command::VideoSubcommand};
 
 fn main() {
 
