@@ -1,13 +1,11 @@
-use std::io::ErrorKind;
 
-#![feature(proc_macro_hygiene)]
-use interpolate::s;
 
 use mysql::*;
 use mysql::prelude::*;
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct TableDescriptor{
+    table_name: String,
     table_descriptor: Vec<TableDescriptorDetail>
 }
 
@@ -70,13 +68,13 @@ pub fn describe_table() -> std::result::Result<(), Box<dyn std::error::Error>>{
 
     let mut conn = pool.get_conn()?;
 
-    for table_name in tables.iter() {
-        println!("table name: {:?}", table_name);
+    for table_name_iter in tables.iter() {
+        println!("table name: {:?}", &table_name_iter);
+        let table = &table_name_iter.table_name;
 
-        let mut query = "SELECT isc.COLUMN_NAME as field, isc.DATA_TYPE as data_type, isc.IS_NULLABLE as is_null, isc.column_key, isc.extra FROM information_schema.COLUMNS isc ".to_owned();
+        let mut query = format!("SELECT isc.COLUMN_NAME as field, isc.DATA_TYPE as data_type, 
+        isc.IS_NULLABLE as is_null, isc.column_key, isc.extra FROM information_schema.COLUMNS isc WHERE TABLE_NAME = '{table}'").to_owned();
 
-       // let condition = s!("'WHERE TABLE_NAME = {table_name.table_name}'");
-        let greeting = s!("{name}'s favorite number is {fav_num}");
 
 
        // query.push(condition);
@@ -92,11 +90,21 @@ pub fn describe_table() -> std::result::Result<(), Box<dyn std::error::Error>>{
         )?;
 
         let table_descriptor = TableDescriptor{
-            table_descriptor: selected_table_descriptor 
+            table_descriptor: selected_table_descriptor,
+            table_name: table.clone()
         };
 
         table_descriptor_list.push(table_descriptor);
 
+    }
+
+    for table_descriptor in table_descriptor_list {
+        println!("table desceiptor detail for {}", table_descriptor.table_name);
+        for table_detail in table_descriptor.table_descriptor.iter() {
+            println!("table detail {}",table_detail);
+            
+        }
+        
     }
 
 
